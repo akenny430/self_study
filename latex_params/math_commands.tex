@@ -1,0 +1,56 @@
+%% latex commands need to be in camel case
+
+%% custom commands to make my own vectors/ matrices, and tensors 
+\newcommand{\mVector}[1]
+{
+    \ifcat\noexpand#1\relax
+        \bm{#1}
+    \else
+        \mathbf{#1}
+    \fi
+}
+\newcommand{\mMatrix}[1]{\mathbf{#1}} % matrix 
+\newcommand{\mTensor}[1]{\bm{\mathscr{#1}}} % higher dimensional tensor 
+\newcommand{\rVector}[1]{\bm{#1}} % matrix with random elements 
+
+%% commands to have blackboard fonts for standard probability stuff (e.g. expected value, variance)
+\newcommand{\pr}{\mathbb{P}}
+\newcommand{\ev}{\mathbb{E}}
+\newcommand{\var}{\mathbb{V}\mathrm{ar}}
+\newcommand{\sd}{\mathrm{sd}}
+\newcommand{\cov}{\mathbb{C}\mathrm{ov}}
+\newcommand{\cor}{\mathbb{C}\mathrm{or}}
+\newcommand{\bias}{\mathbb{B}\mathrm{ias}}
+
+%% common sets used 
+\newcommand{\N}{\mathbb{N}} %% real numbers 
+\newcommand{\Z}{\mathbb{Z}} %% real numbers 
+\newcommand{\R}{\mathbb{R}} %% real numbers 
+\newcommand{\C}{\mathbb{C}} %% complex numbers 
+
+%% common operators 
+\newcommand{\diff}{\mathrm{d}} %% differential 
+\newcommand{\id}{\,\diff} %% differential (used in integral)  
+% \newcommand{\T}{T} %% transpose 
+\newcommand{\T}{\top} %% transpose 
+
+%% renewing binomial coefficient, this looks better 
+\renewcommand{\binom}[2]{
+    \begin{pmatrix}
+        #1 \\ #2
+    \end{pmatrix}
+}
+
+%% command for indicator functions, need bb font for numbers 
+\usepackage{bbm}
+\newcommand{\ind}{ \mathbbm{1} } % symbol for indicator function 
+
+%% defining arg-min and arg-max functions
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+
+%% command for iid sample 
+\newcommand{\iid}{\overset{\mathrm{iid}}{\sim}} 
+
+%% general subsetting for vector/matrices 
+\newcommand{\elSub}[3]{{#1}_{#2,#3}} 

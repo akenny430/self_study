@@ -1,0 +1,216 @@
+%' ============================================================================================================
+%  FOOTER
+%' ============================================================================================================
+
+% \def\mysep{\(\diamond\)}
+\def\mysep{\(\circ\)}
+
+
+
+\makeatletter
+\setbeamertemplate{footline}
+{
+    \dimen0 = \paperwidth
+    \multiply\dimen0 by \insertframenumber
+    \divide\dimen0 by \inserttotalframenumber
+    \edef\progressbarwidth{\the\dimen0}
+    
+    {\leavevmode%
+    \hbox{%
+    \begin{beamercolorbox}[wd = 0.805\paperwidth, ht = 4ex , dp = 2ex, left]{section in head/foot}%
+        \ifx\insertauthor\empty~~~~ %% if no author, leave blank, else put all info 
+        \else~~~~\faCopyright~~\insertauthor{}~~~~\href{https://github.com/akenny430}{\faGithub~a{}ken{}n{}y{}430}~~~~\href{https://www.linkedin.com/in/akenny430/}{\faLinkedin~a{}ken{}n{}y{}430}
+        \fi
+    \end{beamercolorbox}%
+    %% numbers in the slides (choose which one) 
+    \begin{beamercolorbox}[wd = 0.195\paperwidth, ht = 4ex, dp = 2ex, right]{section in head/foot}%
+        % \hspace{0.25in}\insertframenumber ~/ \inserttotalframenumber~~~~  %% frame / total 
+        \hspace{0.25in}\insertframenumber~~~~~ %% frame only 
+    \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+    }%
+    %% color bar on the bottom (if using only full bar, need to change color opacity later on) 
+    \begin{beamercolorbox}[wd = \paperwidth, ht = 0.6ex, dp = 0ex]{author in head/foot}%
+        % \begin{beamercolorbox}[wd = \progressbarwidth, ht = 0.6ex, dp = 0ex]{title in head/foot}%
+        % \end{beamercolorbox}%
+    \end{beamercolorbox}%
+}
+\makeatother
+
+
+
+%' ============================================================================================================
+%  TITLE
+%' ============================================================================================================
+
+\usepackage{fontawesome}
+\defbeamertemplate*{title page}{customized}[1][]
+{
+    \centering
+    \vspace{0.5in}
+    \ifx\insertsubtitle\empty {\LARGE\inserttitle} \par \vspace{2em}
+    \else {\LARGE\inserttitle} \par \vspace{0.1in} {\insertsubtitle} \par \vspace{1em}
+    \fi
+    
+    % {\insertauthor}    \par\vspace{0.5em}
+    % {\insertinstitute} \par\vspace{0.4em}
+    % {\insertdate}      \par%\vspace{0.3em}
+    
+
+    % \vspace{4em}
+    % ~~~\href{https://github.com/akenny430}{\faGithub~ a{}ken{}n{}y{}430}
+    % ~~~\href{https://www.linkedin.com/in/akenny430/}{\faLinkedin~ a{}ken{}n{}y{}430}
+    % ~~~\href{https://www.reddit.com/user/akenny430} {\faRedditAlien~ u/a{}ken{}n{}y{}430}
+}
+
+
+
+
+
+%' ============================================================================================================
+%  SECTIONS
+%' ============================================================================================================
+
+\AtBeginSection[]{
+    \begin{frame}{}
+    
+    \centering
+    \vfill
+    \vspace{0.5in}
+    \LARGE\insertsection
+    \vfill
+    
+    \end{frame}
+}
+
+
+
+
+%' ============================================================================================================
+%  GENERAL
+%' ============================================================================================================
+
+%% want way to override shit spacing with sub itemize stuff 
+\setbeamersize{text margin left = 0.25in, text margin right = 0.25in} %% indents 
+
+\setbeamertemplate{navigation symbols}{} %% getting rid of nav symbols on bottom 
+
+%% itemize items 
+\setbeamertemplate{itemize item}[circle]{}
+\setbeamercolor{itemize item}{fg = textcol}
+
+%% itemize subitems 
+\setbeamertemplate{itemize subitem}[square]{}
+\setbeamercolor{itemize subitem}{fg = textcol}
+
+%% enumerate items 
+\setbeamertemplate{enumerate item}[default]{}
+\setbeamercolor{enumerate item}{fg = textcol}
+
+% \hypersetup{colorlinks = false}
+
+
+
+
+%' ============================================================================================================
+%  COLORS
+%' ============================================================================================================
+
+%% command for setting colors of beamer slides (main, text, background, definition) 
+% \newcommand{\setTheColor}[5]
+\newcommand{\setTheColor}[4]
+{
+    \colorlet{bgcol}{#1}
+    \colorlet{defcol}{#2}
+    \colorlet{textcol}{#3}
+    \colorlet{maincol}{#4}
+    % \newcommand{\whichlogo}{path/to/image/#5} %% comment this out if there is a logo to put in the top right 
+}   
+
+%% slide title 
+\setbeamercolor{frametitle}{bg = bgcol, fg = textcol}   
+% \setbeamercolor{frametitle}{bg = maincol!30, fg = textcol}      
+% \setbeamercolor{frametitle}{bg = bgcol, fg = maincol}           
+
+%% increasing progress bar 
+\setbeamercolor{title in head/foot}{bg = maincol, fg = textcol} 
+
+%% background progress bar 
+% \setbeamercolor{author in head/foot}{bg = maincol!50, fg = textcol} 
+\setbeamercolor{author in head/foot}{bg = maincol, fg = textcol} 
+
+%% text in footer 
+\setbeamercolor{section in head/foot}{bg = bgcol, fg = textcol} 
+
+%% background color 
+\setbeamercolor{background canvas}{bg = bgcol} 
+
+%% text color 
+\setbeamercolor{normal text}{fg = textcol} 
+
+
+
+
+
+
+%' ============================================================================================================
+%' LOGO
+%' ============================================================================================================
+
+%' un-comment this whole file to include the logo 
+% \usepackage{eso-pic}
+% \newcommand\AtPagemyUpperLeft[1]{\AtPageLowerLeft{%
+% \put(\LenToUnit{0.9\paperwidth},\LenToUnit{0.9\paperheight}){#1}}}
+% \AddToShipoutPictureFG{
+%   \AtPagemyUpperLeft{{\includegraphics[width=4em,keepaspectratio]{\whichlogo}}}
+% }%
+
+
+
+
+
+%' ============================================================================================================
+%' ============================================================================================================
+
+% packages used to adjust formatting of document
+\usepackage{microtype} %% don't remember why this is important, but makes it look nicer? 
+
+%% choose which style for math font 
+% \usepackage[light]{roboto} %% roboto font 
+\usefonttheme[onlymath]{serif} %% anything not math is serif 
+% \usefonttheme[stillsansserifsmall]{serif} %% only text on bottom is serif 
+
+%% making tables
+\usepackage{booktabs}
+\usepackage{multirow, multicol}
+\usepackage{tabularx}
+
+%% math
+\usepackage{mathtools, amssymb, bm} 
+\usepackage[mathscr]{euscript}
+
+%% images
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+%% extra
+\usepackage{tikzsymbols}
+    
+%% changing emph definition 
+%% should make own proper definition commands (look into theorem environment)
+\renewcommand{\emph}[1]{\textcolor{defcol}{\textsl{#1}}}
+
+%% color boxes for theorem environment 
+\usepackage{tcolorbox}
+% \tcbset{colback=mblue!5, colframe=mblue!75!black, boxrule=0.25mm}
+\tcbset{colback=lgray!50, colframe=mblue!75!black, boxrule=0.25mm}
+
+
+%' ============================================================================================================
+%  OTHER BEAMER STUFF 
+%' ============================================================================================================
+
+% vertical spacing 
+% \newcommand{\vs1}{\vspace{1em}}
+% \newcommand{\vs2}{\vspace{2em}}
