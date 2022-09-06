@@ -1,0 +1,375 @@
+% \documentclass[8pt, aspectratio=169]{beamer} 
+\documentclass[8pt, aspectratio=149]{beamer} 
+
+\input{../../latex_params/colors.tex} 
+\input{../../latex_params/math_commands.tex}
+
+\input{../../latex_params/beamer_01.tex} 
+\setTheColor{bwhite}{dred}{tblack}{mblue} %% (white background)  
+% \setTheColor{bgray}{dred}{twhite}{mblue} %% (gray background)
+
+\begin{document}
+    
+\title{Introduction to differentials} 
+\author{Aiden Kenny} 
+\institute{Nothing} 
+\date{2022}
+
+% \newcommand{\vs1}{\vspace{1em}}
+% \newcommand{\vs2}{\vspace{2em}}
+\newcommand{\thel}{t{}h} 
+\newcommand{\Jacobian}{J{}a{}c{}o{}b{}i{}a{}n}
+
+%' ============================================================================================================================================================
+\begin{frame}{}
+
+    \maketitle
+
+\end{frame}
+
+%' ============================================================================================================================================================
+\begin{frame}{Outline}
+
+    \tableofcontents
+
+\end{frame}
+
+
+
+\section{Introduction} 
+%' ============================================================================================================================================================
+\begin{frame}{Derivatives} 
+
+    The \mDef{derivative} of a function \( f(x) : \R \to \R \) is defined to be 
+    \begin{align*}
+        f'(x)
+        \coloneqq 
+        \lim_{\delta \to 0} \frac{f(x + \delta) - f(x)}{\delta}. 
+    \end{align*}
+    \begin{itemize}
+        \item ``If you make a very small change in \( x \), how will \( f \) change?'' 
+        \item And this is then made rigorous as the small change in \( x \) becomes small from the limit. 
+    \end{itemize}
+
+\end{frame}
+
+
+
+%' ============================================================================================================================================================
+\begin{frame}{Leibniz notation}
+
+    Intro calculus classes teach of Leibniz notation: \( \diff f / \diff y \) as another way to write \( f'(x) \): 
+    \begin{align*}
+        \frac{\diff f}{\diff x} = f'(x) 
+        = \lim_{\delta \to 0} \frac{f(x + \delta) - f(x)}{\delta}
+    \end{align*}
+    \begin{itemize}
+        \item Intuition: \( \diff x \) is an ``infinitely small'' change in \( x \), \( \diff f \) is an ``infinitely small'' change in \( f \) 
+        \item Then taking the ratio gives the ``instantaneous'' rate of change of \( f \): the derivative     
+        % \item And then learn \mDanger{``this is not a fraction!''} 
+        % \item An ``infinitely small'' change is not rigorously defined 
+    \end{itemize}
+
+    \vspace{1em}
+    \mWarn{We will ignore this way of thinking} 
+    \begin{itemize}
+        \item Instead, give \textit{differentials} their own rigorous definition in general  
+        \item Then make connection to derivatives (if function is differentiable) 
+    \end{itemize} 
+
+\end{frame}
+
+
+
+%' ============================================================================================================================================================
+\begin{frame}{Partial derivatives}
+
+    For a function \( \mVector{f}(\mVector{x}) : \R^m \to \R^n \) (now multivariate), 
+    the \mDef{partial derivative} is  
+    \begin{align*}
+        \frac{\partial f_i}{\partial x_j} 
+        \coloneqq 
+        \lim_{\delta \to 0} \frac{f_i(\mVector{x} + \delta \mVector{e}_j) - f_i(\mVector{x})}{\delta},
+    \end{align*} 
+    where \( \mVector{e}_j \in \R^m \) is the unit vector where the \( j \)\thel{} element is \( 1 \) and the rest are \( 0 \). 
+    \begin{itemize}
+        \item Looking at how \( i \)\thel{} component of \( \mVector{f} \) changes with respect to \( j \)\thel{} component of \( \mVector{x} \).     
+    \end{itemize}  
+    
+    \vspace{1em} 
+    Think of being acted on by the \textit{differential operator} \( \partial / \partial x_j \): 
+    \begin{align*}
+        \frac{\partial f_i}{\partial x_j} = \frac{\partial}{\partial x_j} f_i(\mVector{x}),
+    \end{align*} 
+    we are ``acting'' on \( f_i(\mVector{x}) \) by differentiating with respect to \( x_j \) 
+    \begin{itemize}
+        \item \mDanger{This operator is not a fraction! It is just the notation chosen to represent this action} 
+    \end{itemize}
+
+\end{frame}
+
+
+
+%' ============================================================================================================================================================
+\begin{frame}{...}
+
+    If \( f(x) : \R \to \R \), then the partial derivative is 
+    \begin{align*}
+        \frac{\partial f}{\partial x} 
+        = \lim_{\delta \to 0} \frac{f(x + \delta \cdot 1) - f(x)}{\delta} 
+        = f'(x).  
+    \end{align*} 
+    The partial derivative is just... the derivative for univariate functions. 
+
+    \vspace{1em} 
+    \mEmph{We will use the partial derivative notation when differentiating univarite functions} 
+    \begin{itemize}
+        \item Better for generalizing 
+    \end{itemize}
+
+\end{frame}
+
+
+
+%' ============================================================================================================================================================
+\begin{frame}{Jacobian matrix}
+
+    For a function \( \mVector{f}(\mVector{x}) : \R^m \to \R^n \)
+    put all partial derivatives into a matrix 
+    \begin{align*}
+        \frac{\partial \mVector{f}}{\partial \mVector{x}} 
+        % = \mMatrix{J}_{\mVector{f}}(\mVector{x}) 
+        \coloneqq 
+        \begin{bmatrix}
+            \partial f_1 / \partial x_1 & \cdots & \partial f_1 / \partial x_m \\ 
+            \vdots & \ddots & \vdots \\ 
+            \partial f_n / \partial x_1 & \cdots & \partial f_n / \partial x_m \\ 
+        \end{bmatrix} 
+        \in \R^{n \times m}. 
+    \end{align*}
+    This is commonly called: 
+    \begin{itemize}
+        \item The \textit{derivative} (understanding it is a combination of all partial derivatives). 
+        \item The \textit{\Jacobian} of \( \mVector{f} \) with respect to \( \mVector{x} \).   
+        \item Sometimes labeled as \( \mMatrix{J}_{\mVector{x}}\mVector{f} \) or \( \mVector{J} \) 
+    \end{itemize}
+
+    \vspace{1em}
+    \mEmph{When we say ``the derivative'' of \( \mVector{f}(\mVector{x}) \), we are talking about the collection of all partial derivatives} 
+
+\end{frame}
+
+
+
+%' ============================================================================================================================================================
+\begin{frame}{Special cases of Jacobian}
+
+    If \( f(x) : \R \to \R \), then \( \partial f / \partial x \in \R^{1 \times 1} = \R \), so it is just ``the derivative'' 
+    
+    \vspace{2em} 
+    If \( f(\mVector{x}) : \R^m \to \R \), then \( \partial f / \partial \mVector{x} \in \R^{1 \times m} \) is a \textit{row vector}  
+    \begin{itemize}
+        \item Aside: this is not the same as the \textit{gradient}, \( \nabla_{\mVector{x}}f \), which is a column vector 
+        \item So \( (\partial f / \partial \mVector{x})^\T = \nabla_{\mVector{x}}f \), they are transposes of each other 
+        % \item This is why the gradient is used more 
+    \end{itemize}
+
+    \vspace{2em} 
+    If \( \mVector{f}(x) : \R \to \R^n \), then \( \partial \mVector{f} / \partial x \in \R^{n \times 1} = \R^n \) is a \textit{column vector}  
+
+\end{frame}
+
+
+
+%' ============================================================================================================================================================
+\begin{frame}{Taylor series}
+
+    For a function \( f : \R \to \R \in \mathcal{C}^d \) (can be differentiated \( d \) times), 
+    % where \( d = \N \cup \{\infty\} \), 
+    it's \mDef{Taylor series centered at \( x_* \)} is  
+    \begin{align*}
+        f(x) 
+        % = \sum_{i = 0}^d \frac{f^{(i)}(x_*)}{i!} (x - x_*)^i 
+        % = \sum_{i = 0}^d \frac{1}{i!} \frac{\partial^i f}{\partial x^i}(x_*) (x - x_*)^i
+        = \sum_{i = 0}^d \frac{1}{i!} \frac{\partial^i f(x_*)}{\partial x^i} (x - x_*)^i 
+        = f(x_*) + \frac{\partial f(x_*)}{\partial x} (x - x_*) + \cdots 
+    \end{align*}  
+    % (we wrote out both notations of the derivative)
+
+    \vspace{1em} 
+    For function \( \mVector{f}(\mVector{x}) : \R^m \to \R^n \), Taylor series centered at \( \mVector{x}_* \) is 
+    \begin{align*}
+        \mVector{f}(\mVector{x}) 
+        = \mVector{f}(\mVector{x}_*) + \frac{\partial \mVector{f}(\mVector{x_*})}{\partial \mVector{x}} ( \mVector{x} - \mVector{x}_* ) + \cdots 
+    \end{align*} 
+
+    \begin{itemize}
+        \item \mEmph{We are mainly concered with the linear component of the Taylor series} 
+        \item Other terms of multivariate Taylor series are outside of scope 
+    \end{itemize}
+
+\end{frame}
+
+
+
+\section{Differentials} 
+%' ============================================================================================================================================================
+\begin{frame}{Differentials}
+
+    A \mDef{differential} for any function \( f(x) : \R \to \R \) is defined as 
+    \begin{align*}
+        \diff f 
+        = \diff f(x; \Delta) 
+        % \coloneqq \lim_{\delta \to 0} \Big( f(x + \delta) - f(x) \Big). 
+        \coloneqq f(x + \Delta) - f(x). 
+    \end{align*} 
+    Informally, is just the difference when you have a very small change in the input 
+    \begin{itemize}
+        \item \( \Delta \) is usually taken to be very small (\( \Delta < 0.01 \)), \mWarn{but \( \Delta \neq 0 \)!} 
+        % \item \mEmph{\( \Delta \) should be very small, and }
+        \item So the differential will depend on the value of \( \Delta \) 
+        \item It is a function itself, \( \diff f : \R \to \R \)  
+    \end{itemize}
+
+    \vspace{1em}
+    For special case \( f(x) = x \), 
+    \begin{align*}
+        \diff f = (x + \Delta) - x = \Delta \coloneqq \diff x. 
+    \end{align*}
+    The output is just the input, make this the differential of the input. 
+    \begin{itemize}
+        \item Will write \( \Delta \) as \( \diff x \) doing forward 
+    \end{itemize}
+
+\end{frame}
+
+
+%' ============================================================================================================================================================
+\begin{frame}{Multivariate differentials}
+
+    If \( \mVector{f}(\mVector{x}): \R^m \to \R^n \), a multivariate differential is just a vector: 
+    \begin{align*}
+        \mVector{\Delta} = \diff \mVector{x} 
+        = \begin{bmatrix}
+            \diff x_1 \\ \vdots \\ \diff x_m
+        \end{bmatrix}, 
+        ~~~
+        \diff \mVector{f} = \mVector{f}(\mVector{x} + \diff \mVector{x}) - \mVector{f}(\mVector{x}) 
+        = \begin{bmatrix}
+            \diff f_1 \\ \vdots \\ \diff f_n 
+        \end{bmatrix}
+    \end{align*}
+
+\end{frame}
+
+
+
+\section{Connection to derivatives} 
+%' ============================================================================================================================================================
+\begin{frame}{Relating \( \diff f \) to \( \diff x \)}
+
+    For a function \( f: \R \to \R \), we can have differentials for the input (\( \diff x \)) and output (\( \diff f \))  
+    \begin{itemize}
+        \item \mEmph{We would like to have a way to relate \( \diff f \) to \( \diff x \)} 
+        \item ``If we change input by \( \Delta \), how will output change?'' 
+        \item This sounds a lot like a derivative... \mWarn{but it does not need to be (e.g. Brownian motion)} 
+    \end{itemize}
+
+\end{frame}
+
+
+
+%' ============================================================================================================================================================
+\begin{frame}{Univariate differentiable functions}
+
+    % If \( f: \R \to \R \) is differentiable at least once, the Taylor series of \( f(x + \Delta) \) centered at \( x \) is 
+    % \begin{align*}
+    %     f(x + \Delta) 
+    %     = \sum_{i = 1}^{\infty} \frac{1}{i!} \frac{\partial^i f(x)}{\partial x} (x + \Delta - x)^i 
+    %     = f(x) + \frac{\partial f}{\partial x} \Delta + \frac{\partial^2 f}{\partial x^2} \frac{\Delta^2}{2} + \cdots.
+    % \end{align*}
+    % Differential is then 
+    % \begin{align*}
+    %     \diff f 
+    %     = f(x + \Delta) - f(x) 
+    %     = \frac{\partial f}{\partial x} \Delta + \frac{\partial^2 f}{\partial x^2} \frac{\Delta^2}{2} + \cdots
+    %     = \frac{\partial f}{\partial x} \Delta + o(\Delta). 
+    % \end{align*}
+    % As \( \Delta \to 0 \), \mEmph{the other terms all shrink much faster, so we ignore them}: 
+    If \( f: \R \to \R \) is differentiable at least once, the Taylor series of \( f(x + \diff x) \) centered at \( x \) is 
+    \begin{align*}
+        f(x + \diff x) 
+        = \sum_{i = 1}^{\infty} \frac{1}{i!} \frac{\partial^i f(x)}{\partial x} (x + \diff x - x)^i 
+        = f(x) + \frac{\partial f}{\partial x} \diff x + \frac{1}{2} \frac{\partial^2 f}{\partial x^2} \diff x^2 + \cdots.
+    \end{align*}
+    Differential is then 
+    \begin{align*}
+        \diff f 
+        = f(x + \diff x) - f(x) 
+        = \frac{\partial f}{\partial x} \diff x + \frac{\partial^2 f}{\partial x^2} \frac{\diff x^2}{2} + \cdots
+        = \frac{\partial f}{\partial x} \diff x + o(\diff x). 
+    \end{align*}
+    As \( \diff x \to 0 \), \mEmph{the other terms all shrink much faster, so we ignore them}: 
+    \begin{align*}
+        \diff f 
+        = \frac{\partial f}{\partial x} \diff x
+    \end{align*}
+    \mEmph{This is the connection of differentials for a differentiable function} 
+    \begin{itemize}
+        \item Only looking at linear part of Taylor series 
+        \item Higher order terms technically still there, but are so small we can safely ignore 
+        \item \mDanger{This will not always be the case (e.g. geometric brownian motion)} 
+    \end{itemize}
+
+\end{frame}
+
+
+
+%' ============================================================================================================================================================
+\begin{frame}{Multivariate differentiable functions}
+
+    Same idea with multivariate function \( \mVector{f}(\mVector{x}): \R^m \to \R^n \): Taylor series of \( \mVector{f}(\mVector{x} + \diff \mVector{x}) \) 
+    centered at \( \mVector{x} \) is 
+    \begin{align*}
+        \mVector{f}(\mVector{x} + \diff \mVector{x}) 
+        = \mVector{f}(\mVector{x}) + \frac{\partial \mVector{f}}{\partial \mVector{x}} \diff \mVector{x} + \mVector{o}(\diff \mVector{x}). 
+    \end{align*}
+    As \( \diff \mVector{x} \to \mVector{0} \), the \( \mVector{o}(\diff \mVector{x}) \) can be ignored, 
+    resulting in 
+    \begin{align*}
+        \diff \mVector{f} 
+        = \frac{\partial \mVector{f}}{\partial \mVector{x}} \diff \mVector{x} 
+    \end{align*}
+
+    \vspace{1em} 
+    This works for any dimensionality: 
+    \begin{itemize}
+        \item \( f(x): \R \to \R \) we already did 
+        \item \( f(\mVector{x}): \R^m \to \R \) gives 
+        \begin{align*}
+            \diff f 
+            = \frac{\partial f}{\partial \mVector{x}} \diff \mVector{x} 
+            = \begin{bmatrix}
+                \displaystyle \frac{\partial f}{\partial x_1} & \cdots & \displaystyle \frac{\partial f}{\partial x_m} 
+            \end{bmatrix} \begin{bmatrix}
+                \diff x_1 \\ \vdots \\ \diff x_m
+            \end{bmatrix} 
+            = \sum_{j = 1}^m \frac{\partial f}{\partial x_j} \diff x_j. 
+        \end{align*}
+        \item \( \mVector{f}(x): \R \to \R^n \), same idea 
+    \end{itemize}
+
+\end{frame}
+
+
+
+%' ============================================================================================================================================================
+\begin{frame}{}
+
+    
+
+\end{frame}
+
+
+
+\end{document}
